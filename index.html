@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Unreal SMP is a hardcore, scripted Minecraft roleplay server. One life - every scene counts.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Unreal SMP</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Figtree:wght@400;500;600&family=Silkscreen&display=swap">
+<style>
+  /* Layout: one cinematic column - orbital-ring hero, then plain sections on a deep night ground.
+     Single dark look by choice (it's a night-time, on-camera show). */
+  :root {
+    --night: #0b0812;        /* page ground */
+    --ink: #120d1d;          /* raised bands */
+    --line: #2a2140;         /* hairlines */
+    --mist: #b9add3;         /* secondary text */
+    --bone: #f1ecfa;         /* main text */
+    --violet: #a46bff;       /* the one accent */
+    --ember: #ff5a4e;        /* hardcore hearts only */
+    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+    --pixel: "Silkscreen", "Courier New", monospace;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--night);
+    color: var(--bone);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+    z-index: 10; background: var(--night);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap {
+    max-width: 1080px; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+    background: color-mix(in srgb, var(--night) 82%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+  .brand { font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: .02em; text-decoration: none; text-transform: uppercase; }
+  .brand span { color: var(--violet); }
+  .nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  .nav ul a { text-decoration: none; color: var(--mist); font-size: 15px; font-weight: 500; }
+  .nav ul a:hover { color: var(--bone); }
+  @media (max-width: 560px) { .nav ul { gap: 14px; } .nav ul li.hide-sm { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  #rings { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero .wrap { position: relative; padding-block: 96px 88px; }
+  .tag {
+    font-family: var(--pixel); font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--violet); display: inline-flex; align-items: center; gap: 10px;
+  }
+  .tag::before { content: ""; width: 8px; height: 8px; background: var(--ember); box-shadow: 0 0 10px var(--ember); }
+  h1 {
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(56px, 11vw, 132px); line-height: .9; letter-spacing: .005em;
+    margin: 18px 0 22px; text-wrap: balance; max-width: 11ch;
+  }
+  h1 em { font-style: normal; color: var(--violet); }
+  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--mist); max-width: 34em; margin: 0 0 34px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    font: 600 16px/1 var(--body); padding: 15px 22px; border-radius: 6px; text-decoration: none;
+    border: 1px solid var(--violet); cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn.primary { background: var(--violet); color: var(--night); }
+  .btn.primary:hover { background: var(--bone); border-color: var(--bone); }
+  .btn.ghost { background: transparent; color: var(--bone); border-color: var(--line); }
+  .btn.ghost:hover { border-color: var(--violet); }
+
+  /* ---------- sections ---------- */
+  section { padding-block: 84px; }
+  .band { background: var(--ink); border-block: 1px solid var(--line); }
+  .eyebrow { font-family: var(--pixel); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--violet); margin: 0 0 12px; }
+  h2 {
+    font-family: var(--display); font-weight: 800; text-transform: uppercase;
+    font-size: clamp(38px, 6vw, 64px); line-height: .95; margin: 0 0 20px; text-wrap: balance;
+  }
+  p { margin: 0 0 16px; max-width: 62ch; }
+  .muted { color: var(--mist); }
+
+  /* hardcore rules */
+  .split { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
+  @media (max-width: 820px) { .split { grid-template-columns: 1fr; gap: 36px; } }
+  .split > * { min-width: 0; }
+  .hearts { display: flex; gap: 6px; margin: 4px 0 26px; }
+  .heart { width: 22px; height: 22px; }
+  .rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .rules li { display: grid; grid-template-columns: 120px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  @media (max-width: 480px) { .rules li { grid-template-columns: 1fr; gap: 4px; } }
+  .rules b { font-family: var(--pixel); font-weight: 400; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--violet); padding-top: 3px; }
+  .rules span { color: var(--bone); }
+
+  /* casting */
+  .cast {
+    display: grid; grid-template-columns: 1fr auto; gap: 28px 48px; align-items: center;
+    border: 1px solid var(--line); border-radius: 10px; padding: 36px; background: var(--night);
+  }
+  @media (max-width: 720px) { .cast { grid-template-columns: 1fr; padding: 26px; } }
+  .cast > * { min-width: 0; }
+  .handle {
+    display: flex; align-items: center; gap: 0; border: 1px solid var(--line); border-radius: 6px;
+    overflow: hidden; background: var(--ink); max-width: 100%;
+  }
+  .handle code { font-family: var(--pixel); font-size: 16px; padding: 14px 16px; color: var(--bone); user-select: all; white-space: nowrap; }
+  .handle button { font: 600 15px var(--body); border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--violet); padding: 14px 16px; cursor: pointer; }
+  .handle button:hover { background: var(--line); }
+  .small { font-size: 14px; color: var(--mist); margin-top: 10px; }
+
+  /* plugin */
+  .plugin-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 18px; margin-bottom: 8px; }
+  .status {
+    font-family: var(--pixel); font-size: 12px; text-transform: uppercase; letter-spacing: .08em;
+    border: 1px solid var(--violet); color: var(--violet); padding: 6px 10px; border-radius: 999px;
+  }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 36px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  @media (max-width: 860px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .features { grid-template-columns: 1fr; } }
+  .feature { padding: 24px 22px 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+  .feature h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 24px; letter-spacing: .01em; margin: 0 0 8px; }
+  .feature p { color: var(--mist); font-size: 15.5px; margin: 0; }
+  .cmd { font-family: var(--pixel); font-size: 12px; color: var(--violet); display: block; margin-bottom: 10px; letter-spacing: .02em; }
+
+  footer { padding-block: 40px; border-top: 1px solid var(--line); color: var(--mist); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+</style>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top">Unreal <span>SMP</span></a>
+    <ul>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#cast">Join the cast</a></li>
+      <li class="hide-sm"><a href="#plugin">ScriptedCore</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="rings" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="tag">Hardcore · Scripted · Recording</div>
+    <h1>One life. <em>Every</em> scene counts.</h1>
+    <p class="lede">Unreal SMP is a hardcore, story-driven Minecraft server. A cast of players acts out an ongoing story through scripted events, and if you die, you're out.</p>
+    <div class="actions">
+      <a class="btn primary" href="#cast">Join the cast</a>
+      <a class="btn ghost" href="#plugin">The plugin behind it</a>
+    </div>
+  </div>
+</header>
+
+<section id="rules">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">How it works</p>
+      <h2>Hardcore means hardcore</h2>
+      <div class="hearts" aria-label="Health: nine and a half hearts">
+        <!-- 9 full hearts + 1 half heart, drawn as pixel art -->
+      </div>
+      <p class="muted">This isn't a survival grind. Every session follows the story, and the story only works if the stakes are real. One death and your character's arc is over.</p>
+    </div>
+    <ul class="rules">
+      <li><b>One life</b><span>Die and you're removed from the story. There's no respawning back in.</span></li>
+      <li><b>Scripted</b><span>The admins plan the big moments. Cast members play their characters through them.</span></li>
+      <li><b>On camera</b><span>Sessions are recorded for content, so stay in character while you're on.</span></li>
+      <li><b>Community</b><span>Teamwork and following the event plan matter more than winning.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="cast" class="band">
+  <div class="wrap">
+    <div class="cast">
+      <div>
+        <p class="eyebrow">Casting</p>
+        <h2>We're looking for actors</h2>
+        <p class="muted" style="margin:0">Want a role in the story? Send a message on Discord with your Minecraft username and the kind of character you'd like to play.</p>
+      </div>
+      <div>
+        <div class="handle">
+          <code id="discord">the_shadow333</code>
+          <button type="button" id="copy">Copy</button>
+        </div>
+        <p class="small" id="copy-note">Discord username</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="plugin">
+  <div class="wrap">
+    <p class="eyebrow">Made for Unreal SMP</p>
+    <div class="plugin-head">
+      <h2 style="margin:0">ScriptedCore</h2>
+      <span class="status">Coming soon</span>
+    </div>
+    <p class="muted">The plugin that runs the show. It's built in-house for scripted and lore servers, and it's being tested on Unreal SMP before release.</p>
+
+    <div class="features">
+      <div class="feature">
+        <span class="cmd">/orbital</span>
+        <h3>Orbital strikes</h3>
+        <p>Cast a rod, reel it in, and a nuke lands on the bobber. Every strike is fully customisable.</p>
+      </div>
+      <div class="feature">
+        <span class="cmd">/npc</span>
+        <h3>Survival NPCs</h3>
+        <p>Players with any skin who fight with swords, maces and spears, take knockback and die like real players.</p>
+      </div>
+      <div class="feature">
+        <span class="cmd">/replay</span>
+        <h3>Motion capture</h3>
+        <p>Record actors and play them back as NPCs. Merge takes so one person can play a whole scene.</p>
+      </div>
+      <div class="feature">
+        <span class="cmd">/prompter</span>
+        <h3>Teleprompter</h3>
+        <p>Lines on the action bar that turn green when the actor speaks in voice chat.</p>
+      </div>
+      <div class="feature">
+        <span class="cmd">/session</span>
+        <h3>Recording mode</h3>
+        <p>Locks joins, sets the MOTD, mutes chat and logs every moment with timestamps for editing.</p>
+      </div>
+      <div class="feature">
+        <span class="cmd">/admin</span>
+        <h3>Staff tools</h3>
+        <p>An admin panel, vanish, freeze, silent bans, a mod checker and inventory rollback.</p>
+      </div>
+    </div>
+    <p class="small" style="margin-top:22px">Release news will be posted in the Discord first.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© Unreal SMP</span>
+    <span>Not affiliated with Mojang or Microsoft.</span>
+  </div>
+</footer>
+
+<script>
+  // Pixel hearts: 9 full + 1 half, like a hardcore health bar.
+  (function () {
+    const box = document.querySelector('.hearts');
+    const shape = ['.XX.XX.', 'XXXXXXX', 'XXXXXXX', '.XXXXX.', '..XXX..', '...X...'];
+    function heart(half) {
+      const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 7 6');
+      svg.setAttribute('class', 'heart');
+      shape.forEach((row, y) => [...row].forEach((c, x) => {
+        if (c !== 'X') return;
+        const r = document.createElementNS(ns, 'rect');
+        r.setAttribute('x', x); r.setAttribute('y', y); r.setAttribute('width', 1); r.setAttribute('height', 1);
+        r.setAttribute('fill', half && x > 3 ? '#3a2b52' : '#ff5a4e');
+        svg.appendChild(r);
+      }));
+      return svg;
+    }
+    for (let i = 0; i < 9; i++) box.appendChild(heart(false));
+    box.appendChild(heart(true));
+  })();
+
+  // Copy the Discord username.
+  document.getElementById('copy').addEventListener('click', async () => {
+    const note = document.getElementById('copy-note');
+    const text = document.getElementById('discord').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      note.textContent = 'Copied. Paste it into Discord\'s "Add Friend" box.';
+    } catch (e) {
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById('discord'));
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      note.textContent = 'Selected - press Ctrl+C to copy.';
+    }
+  });
+
+  // Hero: rings of blocks like an orbital nuke seen from below, slowly turning.
+  (function () {
+    const canvas = document.getElementById('rings');
+    const ctx = canvas.getContext('2d');
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w, h, dpr, t = 0;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      const cx = w * (w < 700 ? 0.78 : 0.76), cy = h * 0.5;
+      const rings = 10, gap = Math.max(26, Math.min(w, h) * 0.06);
+      // centre block
+      ctx.fillStyle = 'rgba(164,107,255,0.55)';
+      ctx.fillRect(cx - 4, cy - 4, 8, 8);
+      for (let r = 1; r <= rings; r++) {
+        const radius = r * gap;
+        const count = Math.round((2 * Math.PI * radius) / (13 + r * 1.6));
+        const spin = t * 0.00012 * (r % 2 ? 1 : -1);
+        const alpha = 0.55 - r * 0.042;
+        const s = Math.max(4, 8 - r * 0.25);
+        ctx.fillStyle = `rgba(164,107,255,${alpha})`;
+        for (let k = 0; k < count; k++) {
+          const a = (k / count) * Math.PI * 2 + spin;
+          ctx.fillRect(cx + Math.cos(a) * radius - s / 2, cy + Math.sin(a) * radius - s / 2, s, s);
+        }
+      }
+      // fade the rings out behind the text on the left
+      const g = ctx.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, 'rgba(11,8,18,0.96)');
+      g.addColorStop(0.55, 'rgba(11,8,18,0.55)');
+      g.addColorStop(1, 'rgba(11,8,18,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+    }
+    function loop(ts) { t = ts; draw(); requestAnimationFrame(loop); }
+    size(); draw();
+    window.addEventListener('resize', () => { size(); draw(); });
+    if (!still) requestAnimationFrame(loop);
+  })();
+</script>
+
+</body>
+</html>
